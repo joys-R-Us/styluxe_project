@@ -1,0 +1,76 @@
+/* ---------------------------
+   Global Reset
+--------------------------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Nunito', sans-serif;
+    background: #f5f6fc;
+    color: var(--text-dark);
+    height: 100%;
+}
+
+/* Remove outlines on click */
+button, input, select, textarea {
+    outline: none;
+    font-family: inherit;
+}
+
+/* ---------------------------
+   Color Palette
+--------------------------- */
+:root {
+    --primary: #6C63FF;
+    --primary-light: #A29BFF;
+    --secondary: #FF6584;
+    --accent: #3ECF8E;
+
+    --background: #F8F8FF;
+    --card-bg: rgba(255,255,255,0.75);
+
+    --text-dark: #2B2D42;
+    --text-muted: #6E7191;
+
+    --glass-bg: rgba(255,255,255,0.35);
+    --glass-border: rgba(255,255,255,0.25);
+    --glass-blur: blur(14px);
+}
+
+/* ---------------------------
+   Utility Classes
+--------------------------- */
+.container {
+    width: 90%;
+    margin: 0 auto;
+    max-width: 1400px;
+}
+
+.btn {
+    background: var(--primary);
+    padding: 10px 16px;
+    border-radius: 8px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.btn:hover {
+    background: var(--primary-light);
+}
+
+.glass {
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+}
+
+.text-center { text-align: center; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }

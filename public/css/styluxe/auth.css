@@ -1,0 +1,8 @@
+/* auth.css */
+.auth-wrap{display:flex;align-items:center;justify-content:center;padding:40px 0}
+.auth-card{width:420px;background:rgba(255,255,255,0.03);padding:28px;border-radius:14px;box-shadow:0 8px 30px rgba(2,6,23,0.6)}
+.auth-card h2{margin:0 0 12px}
+.auth-card label{display:block;margin:12px 0 6px;color:var(--muted);font-size:14px}
+.auth-card input[type="text"], .auth-card input[type="email"], .auth-card input[type="password"]{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:var(--white)}
+.auth-card .actions{display:flex;align-items:center;justify-content:space-between;margin-top:16px}
+.link.small{color:var(--accent);text-decoration:underline;font-size:13px}
