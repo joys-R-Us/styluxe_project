@@ -16,6 +16,7 @@
                         <h4>Reset Password</h4>
                     </div>
                     <div class="card-body">
+                        {{-- keep inline alerts for standalone auth pages --}}
                         @if(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif

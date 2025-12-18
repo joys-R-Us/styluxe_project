@@ -1,39 +1,35 @@
-@extends('styluxe.layouts.main')
+@extends('styluxe.layouts.auth')
 
 @section('content')
-<div class="auth-page cartoon-auth">
+<div class="auth-container">
+    <div class="auth-card">
+        <h1 >🎀 Login to Styluxe</h1>
+        
+        <form action="{{ route('styluxe.login.submit') }}" method="POST">
+            @csrf
+            
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" required>
+            </div>
 
-    <!-- HERO ART -->
-    <section class="auth-hero">
-        <img src="{{ asset('storage/images/explore_icon.gif') }}" alt="cartoon fashion art">
-        <h1>🎀 Welcome Back!</h1>
-        <p>Log in to manage your Styluxe inventory and stay stylish! ✨</p>
-    </section>
+            <!-- Remember Me -->
+            <div class="remember_label">
+                <input id="rememberMe" type="checkbox" class="checkbox" name="remember">
+                <label for="rememberMe">Remember me</label>
+            </div>
+            
+            <button type="submit" class="btn">Login</button>
+        </form>
+        
+        <p class="mt-6">Don't have an account? <a href="{{ route('styluxe.register') }}">Register</a></p>
 
-    <!-- FORM CARD -->
-    <section class="auth-panel">
-        <div class="auth-card glass">
-            <h2>Login</h2>
-            <form method="POST" action="{{ route('styluxe.login.submit') }}">
-                @csrf
-                <input type="email" name="email" placeholder="Email" value="{{ old('email') }}" required>
-                <input type="password" name="password" placeholder="Password" required>
-                
-                <!-- Remember Me -->
-                <div class="remember_label">
-                    <input id="rememberMe" type="checkbox" class="checkbox" name="remember">
-                    <label for="rememberMe">Remember me</label>
-                </div>
-
-                <button type="submit" class="form-btn mt-2" >Login</button>
-            </form>
-
-            <p class="text-center" style="margin-top: 10px;">
-                Don't have an account? 
-                <a href="{{ route('styluxe.register') }}" class="link-button">Register</a>
-            </p> 
-        </div>
-    </section>
-
+        <!-- forgot password mag add -->
+    </div>
 </div>
 @endsection

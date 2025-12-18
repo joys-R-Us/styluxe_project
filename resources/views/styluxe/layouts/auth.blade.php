@@ -1,4 +1,4 @@
-@extends('layouts.main')
+@extends('styluxe.layouts.main')
 
 @section('content')
 <div class="auth-wrapper">
@@ -10,7 +10,7 @@
     <section class="auth-form-panel">
         <div class="auth-card">
             <div class="auth-brand">
-                <svg width="48" height="48" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="3" fill="var(--primary)"></rect></svg>
+                <svg width="48" height="48" viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="3" fill="var(--primary-violet)"></rect></svg>
                 <h1>Styluxe</h1>
             </div>
 

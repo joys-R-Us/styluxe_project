@@ -1,59 +1,42 @@
-<!-- 
-resources/views/styluxe/
-│
-├── layouts/
-│     ├── main.blade.php        ← PUBLIC layout (Homepage, Login, Register)
-│     ├── dashboard.blade.php   ← DASHBOARD layout (uses sidebar + topbar)
-│     └── auth.blade.php        ← keep if needed for auth-only pages
-│
-├── components/
-│     ├── sidebar.blade.php     ← FINAL sidebar (combined version)
-│     └── dash-header.blade.php ← FINAL topbar
-├── items/
-│     ├── create.blade.php
-│     ├── edit.blade.php
-│     ├── show.blade.php
-│     ├── index.blade.php        ← homepage
-│     ├── index-public.blade.php ← list of item in table format
-├── homepage.blade.php
-├── login.blade.php
-├── register.blade.php
-├── unauthorized.blade.php
-└── dashboard.blade.php         ← Page using dashboard layout
-
--->
-
-<!Doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title', 'Styluxe Dashboard')</title>
 
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <link rel="stylesheet" href="{{ asset('css/styluxe/styluxe.css') }}">
     @stack('head')
 </head>
+<body class="styluxe-bg">
 
-<body class="styluxe-dashboard-bg">
+    {{-- Header --}}
+    @include('styluxe.components.header')
 
-    <div class="dashboard-wrapper">
+    {{-- Topbar Navigation --}}
+    @include('styluxe.components.topbar')
 
-        <!-- SIDEBAR -->
-        @include('styluxe.components.sidebar')
+    {{-- Main Content --}}
+    <main class="main-content">
+        <div class="container">
+            {{-- Alerts (flash / validation) handled centrally --}}
+            @include('styluxe.components.alerts')
 
-        <div class="dashboard-main-area">
-
-            <!-- DASHBOARD TOP HEADER -->
-            @include('styluxe.components.dash-header')
-
-            <!-- CONTENT -->
-            <main class="dashboard-content">
-                @yield('content')
-            </main>
+            @yield('content')
         </div>
-    </div>
+    </main>
 
-@stack('scripts')
+    {{-- Footer --}}
+    @include('styluxe.components.footer')
+
+    <!-- Bootstrap JS Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="{{ asset('js/styluxe/app.js') }}" defer></script>
+    @stack('scripts')
 </body>
 </html>

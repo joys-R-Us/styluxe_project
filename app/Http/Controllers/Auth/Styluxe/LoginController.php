@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth\Styluxe;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Models\User;
 use App\Helpers\RoleHelper as HelpersRoleHelper;
 
 class LoginController extends Controller
@@ -22,10 +24,23 @@ class LoginController extends Controller
             'password' => 'required'
         ]);
 
-        if (!Auth::attempt($credentials, $request->remember)) {
-            return back()->withErrors(['email' => 'Invalid credentials'])->withInput();
+        // more explicit error handling: check email existence and password
+        $user = User::where('email', $request->email)->first();
+
+        if (! $user) {
+            return back()->with('error', 'Account not registered.')->withInput();
         }
- 
+
+        if (! Hash::check($request->password, $user->password)) {
+            return back()->with('error', 'Incorrect password.')->withInput();
+        }
+
+        if (isset($user->is_active) && ! $user->is_active) {
+            return back()->with('error', 'Your account is inactive. Contact admin.');
+        }
+
+        Auth::login($user, $request->boolean('remember'));
+
         $request->session()->regenerate();
 
         $currentUser = Auth::user();
@@ -68,6 +83,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->route('styluxe.homepage');
+        return redirect()->route('styluxe.login');
     }
 }

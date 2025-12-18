@@ -23,6 +23,7 @@
                         <h4>Verify OTP</h4>
                     </div>
                     <div class="card-body">
+                        {{-- centralized alerts not available in this standalone auth view --}}
                         @if(session('success'))
                             <div class="alert alert-success">{{ session('success') }}</div>
                         @endif

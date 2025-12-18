@@ -8,7 +8,6 @@
 
     <!-- Base & App CSS -->
     <link rel="stylesheet" href="{{ asset('css/styluxe/styluxe.css') }}" />
-    <link rel="stylesheet" href="{{ asset('css/styluxe/dashboard.css') }}" />
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     @stack('head')
@@ -16,13 +15,13 @@
 <body class="styluxe-bg">
 
     <!-- PUBLIC HEADER -->
-    @include('styluxe.components.dash-header')
+    @include('styluxe.components.header')
+
+    {{-- Alerts (flash / validation) --}}
+    @include('styluxe.components.alerts')
 
     <!-- main wrapper -->
     <div class="dashboard-wrapper">
-        <!-- Sidebar
-        @include('styluxe.components.sidebar') -->
-
         <!-- Main Content -->
         <main class="dashboard-main">
             @yield('content')

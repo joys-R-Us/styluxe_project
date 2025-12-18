@@ -6,32 +6,27 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('stock_logs', function (Blueprint $table) {
-            $table->id('id');
-
-            $table->unsignedBigInteger('item_id');
+            $table->id();
+            $table->string('product_barcode', 20);
             $table->unsignedBigInteger('user_id');
-
-            $table->foreign('item_id')->references('product_id')->on('products')->cascadeOnDelete();
-            $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnDelete();
-
-            $table->string('change_type'); // restock, deduct, adjustment
-            $table->integer('quantity'); 
-            $table->integer('previous_qty');
-            $table->integer('new_qty');
-
+            $table->enum('change_type', ['added', 'removed', 'adjusted', 'sold']);
+            $table->integer('quantity_change');
+            $table->integer('previous_quantity');
+            $table->integer('new_quantity');
+            $table->text('notes')->nullable();
             $table->timestamps();
+
+            $table->foreign('product_barcode')->references('barcode')->on('products')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
+            $table->index(['product_barcode', 'created_at']);
+            $table->index('change_type');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('stock_logs');

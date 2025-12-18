@@ -6,36 +6,35 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id('product_id');
-            $table->string('barcode')->unique();            // Unique barcode for the item
-            $table->string('item_name', 100);                      // Item name
-            $table->string('category', 50);                       // Item category
-            $table->string('size');                           // Size of the clothing item
-            $table->string('color',30);                           // Color of the clothing item
-            $table->string('condition');                      // Condition (New, Pre-loved, Vintage)
-            $table->text('description', 500)->nullable();          // item details
-            $table->integer('quantity')->nullable();                      // Quantity in stock
-            $table->decimal('price', 11, 2);                  // Price per unit
-            $table->string('status')->default('Available');                         // Available / Out-Of-Stock / Sold Out
-            $table->string('image_path')->nullable();    // Image path
-            $table->unsignedBigInteger('supplier_id')->nullable();
-            
-            $table->foreign('supplier_id')->references('supplier_id')->on('suppliers')->nullOnDelete();
-            // $table->integer('reorder_level')->default(5);     // Automated low stock alerts
-            // $table->integer('low_stock_threshold')->default(5);           // threshold for low stock alerts
+            $table->id(); // Primary key 'id'
+            $table->string('barcode')->unique();
+            $table->string('item_name');
+            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('size');
+            $table->string('color')->nullable();
+            $table->enum('condition', ['New', 'Pre-Loved', 'Vintage', 'Branded']);
+            $table->text('description')->nullable();
+            $table->integer('quantity')->default(0);
+            $table->decimal('price', 10, 2);
+            $table->enum('status', ['Available', 'Out-Of-Stock', 'Sold Out'])->default('Available');
+            $table->string('image_path')->nullable();
+            $table->integer('reorder_level')->default(5);
+            $table->integer('low_stock_threshold')->default(10);
+            $table->unsignedBigInteger('added_by')->nullable();
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('set null');
+            $table->foreign('added_by')->references('id')->on('users')->onDelete('set null');
+
+            $table->index(['status', 'quantity']);
+            $table->index('category_id');
+            $table->index('barcode');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('products');

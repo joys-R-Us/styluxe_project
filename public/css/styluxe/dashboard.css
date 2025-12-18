@@ -8,12 +8,12 @@
 .sidebar-menu a { text-decoration:none; padding:10px; display:block; border-radius:8px; color:#333; }
 .sidebar-menu a:hover { background:#ffbde3; }
 
-/* Header */
+/* Header 
 .styluxe-header { width:100%; padding:10px 25px; background:#fff; border-bottom:2px solid #ffd6ef; display:flex; justify-content:space-between; align-items:center; }
 .header-actions { display:flex; align-items:center; gap:15px; }
 .header-profile img { width:40px; height:40px; border-radius:50%; }
 .logout-btn { padding:8px 12px; background:#ff6fa8; color:#fff; border:none; border-radius:8px; cursor:pointer; }
-
+*/ 
 /* Main content */
 .main-content {
     padding: 0 50px;

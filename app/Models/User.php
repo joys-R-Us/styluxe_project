@@ -21,9 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        //'role',
+        'role',
+        'phone',
+        'address',
+        'avatar',
+        'is_active',
     ];
-
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -42,8 +45,56 @@ class User extends Authenticatable
     protected function casts(): array
     {
         return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_active' => 'boolean',
         ];
+    }
+
+    // Relationships
+    public function products()
+    {
+        return $this->hasMany(Products::class, 'added_by');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'client_id');
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function stockLogs()
+    {
+        return $this->hasMany(StockLog::class);
+    }
+
+    // Helper methods
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isClient()
+    {
+        return $this->role === 'client';
+    }
+
+    public function canManageInventory()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function getRoleBadgeClass()
+    {
+        $badges = [
+            'admin' => 'badge-admin',
+            'client' => 'badge-client',
+        ];
+
+        return $badges[$this->role] ?? 'badge-client';
     }
 }

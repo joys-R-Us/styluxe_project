@@ -36,6 +36,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect()->route($role === 'client' ? 'styluxe.homepage' : 'styluxe.dashboard');
+        return redirect()->route($role === 'admin' ? 'styluxe.dashboard' : 'styluxe.homepage')->with('success', '🎉 Welcome to Styluxe! Your account has been created successfully.');
     }
 }
